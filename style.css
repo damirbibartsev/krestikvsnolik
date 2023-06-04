@@ -31,6 +31,7 @@
 }
 
 .currentPlayer {
+    background-color:antiquewhite;
     width: 140px;
     font-size: 18px;
     display: flex;
