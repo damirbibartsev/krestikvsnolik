@@ -2,7 +2,12 @@ let area = document.getElementById("area");
 let cell = document.getElementsByClassName("cell");
 let currentPlayer = document.getElementById("curPlayer");
 
+let xStep = document.getElementById("xstep");
+let yStep = document.getElementById("ystep");
+
 let player = "x";
+let x_step=[];
+let y_step=[];
 
 const stat = {
   x: 0,
@@ -10,7 +15,7 @@ const stat = {
   d: 0,
 };
 // data 1 2 4 7
-var winIndex = [
+const winIndex = [
   [1, 2, 3], // winIndex[0]
   [4, 5, 6], // winIndex[1]
   [7, 8, 9],
@@ -30,7 +35,7 @@ for (var i = 0; i < cell.length; i++) {
 }
 
 function cellClick() {
-  var data = [];
+  let data = [];
 
   if (!this.innerHTML) {
     this.innerHTML = player;
@@ -45,8 +50,20 @@ function cellClick() {
     }
   }
 
+  if (player === "x"){
+    x_step.push(parseInt(this.getAttribute("pos")));
+  }
+  else{
+    y_step.push(parseInt(this.getAttribute("pos")));
+  }
+
+
   if (checkWin(data)) {
     stat[player] += 1;
+    console.log(x_step);
+    console.log(y_step);
+    xStep.innerHTML = "Шаги игрока X: " + x_step.join(" ");
+    yStep.innerHTML = "Шаги игрока Y: " + y_step.join(" ");
     restart("Выграл: " + player);
   } else {
     var draw = true;
@@ -82,6 +99,8 @@ function checkWin(data) {
 
 function restart(text) {
   alert(text);
+  x_step = [];
+  y_step = [];
   for (var i = 0; i < cell.length; i++) {
     cell[i].innerHTML = "";
   }
